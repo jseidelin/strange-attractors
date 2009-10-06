@@ -1,0 +1,150 @@
+<html>
+<head>
+
+<title>Nihilogic: Strange Attraction</title>
+
+<link rel="stylesheet" type="text/css" href="reset.css">
+<link rel="stylesheet" type="text/css" href="attractor.css">
+
+<script src="attractor.js" type="text/javascript"></script>
+<script src="pixastic.custom.js" type="text/javascript"></script>
+<script src="MersenneTwister19937class.js" type="text/javascript"></script>
+<script src="names.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div id="main">
+
+<h1>Strange Attraction<hr></h1>
+
+<div id="container">
+    <div id="attractor">
+        <div id="background"></div>
+        <canvas id="output"></canvas>
+        <div id="anim-container"><canvas id="animation"></canvas></div>
+        <div id="overlay"></div>
+        <img id="saveimage" />
+        <div id="log"></div>
+    </div>
+    <div id="controls-container">
+        <div id="controls">
+            <div id="close-button">[x]</div>
+            <ul>
+                <li><label>Formula:</label><select id="option-formula">
+                    <option value="3">Peter de Jong</option>
+                    <option value="1">Trigonometric</option>
+                    <option value="0">Quadratic</option>
+                    <option value="2">H�non</option>
+                </select></li>
+                <li><label>Seed:</label><input type="text" id="option-seed" size=12></li>
+                <li><label>Compositing:</label><input type="checkbox" id="option-compositing" checked></li>
+                <li><label>Stretch:</label><input type="checkbox" id="option-stretch" checked></li>
+                <li><label>Quality:</label><select id="option-quality">
+                    <option value="1">High</option>
+                    <option value="0.5">Medium</option>
+                    <option value="0.2" selected>Low</option>
+                    <option value="0.01" >Very low</option>
+                </select></li>
+            </ul>
+            <button id="button-generate">Generate attractor</button>
+            <div>
+                Leave "Seed" blank to automatically find a new attractor.
+                Enter previously found seeds to recreate that particular attractor. <br/><br/>
+                Use the "Compositing" option to add a glow to the image. The "Stretch" option stretches the image to fill both the x and y axes.
+                Click the image after rendering to bring up these controls.<br/><br/>
+                Tip: Use the "Very low" setting to quickly search for interesting attractors and then recreate them using a higher quality setting.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="piece-title">Welcome</div>
+
+</div>
+
+
+
+<script>
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function init() {
+    var w = 512, h = 512;
+
+    var S = StrangeGenerator();
+
+    $("close-button").onclick = function() {
+        $("controls-container").style.display = "none";
+    }
+
+    $("log").style.display = "none";
+
+    $("overlay").onclick = $("saveimage").onclick = function() {
+        if (!S.isRunning()) {
+            $("controls-container").style.display = "block";
+        }
+    }
+
+    var lasthash = "";
+    setInterval(function() {
+        if (location.hash != lasthash) {
+            var h = location.hash.substring(1).split("_");
+            $("option-seed").value = h[1];
+            switch (h[0]) {
+                case "quad" : $("option-formula").value = 0; break;
+                case "dejong" : $("option-formula").value = 3; break;
+                case "trig" : $("option-formula").value = 1; break;
+                case "henon" : $("option-formula").value = 2; break;
+            }
+            lasthash = location.hash;
+        }
+    }, 200);
+
+    if (location.hash.substring(1) != "") {
+        $("background").style.display = "none";
+        $("controls-container").style.display = "block";
+    }
+
+    var firstRun = false;
+
+    $("button-generate").onclick = function() {
+        if (!S.isRunning()) {
+            $("background").style.display = "none";
+            $("saveimage").style.display = "none";
+
+            var seed = $("option-seed").value;
+            seed = seed != "" ? (seed*1) : null;
+            var options = {
+                width : w,
+                height : h,
+                compositing : $("option-compositing").checked,
+                stretch : $("option-stretch").checked,
+                quality : parseFloat($("option-quality").value),
+                formula : $("option-formula").value*1
+            };
+            if (isNaN(seed)) seed = 0;
+
+            S.makeAttractor(seed, options,
+                function() {
+                    $("saveimage").style.display = "block";
+                    $("saveimage").src = $("output").toDataURL();
+                }
+            );
+            $("controls-container").style.display = "none";
+            $("attractor").className = $("attractor").className.replace("trans50", "");
+
+            firstRun = true;
+        }
+    }
+}
+
+init();
+
+</script>
+
+</body>
+

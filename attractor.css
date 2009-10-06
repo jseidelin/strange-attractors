@@ -1,0 +1,236 @@
+* {
+	-moz-box-sizing : border-box;
+	-ms-box-sizing : border-box;
+	-khtml-box-sizing : border-box;
+	-box-sizing : border-box;
+}
+
+body {
+	text-align : center;
+	background-color : rgb(20,29,39);
+	background-color : rgb(21,29,41);
+	color : white;
+	margin-top : 10px;
+}
+
+a {
+	color : white;
+}
+
+#main {
+	width : 512px;
+	text-align : left;
+	margin : 0 auto;
+}
+
+
+h1 {
+	text-align : center;
+	font-family : "Garamond", "Palatino Linotype", "Times";
+	font-size : 32px;
+	letter-spacing : 2px;
+	width : 512px;
+}
+
+h1:first-letter {
+	font-size : 150%;
+}
+
+
+h1 hr {
+	border-bottom : 1px solid white;
+	border-top : none;
+	margin-top : -0.25em;
+}
+
+#output {
+	width : 512px;
+	height : 512px;
+}
+
+#piece-title {
+	font-family : "Garamond", "Palatino Linotype", "Times";
+	font-size : 19px;
+	font-weight : bold;
+	width : 100%;
+	text-align : center;
+}
+
+#piece-title:before {
+	content : "~ ";
+}
+
+#piece-title:after {
+	content : " ~";
+}
+
+#container {
+	position : relative;
+}
+
+#tmpoutput {
+	position : absolute;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+}
+
+#log {
+	position : absolute;
+	top : 0;
+	left : 0;
+	padding : 10px;
+	width : 100%;
+	height : 100%;
+	overflow : hidden;
+	font-family : lucida console, courier new;
+	font-size : 12px;
+	color : white;
+	word-wrap : break-word;
+	white-space: -o-pre-wrap;
+}
+
+#anim-container {
+	position : absolute;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+	display : none;
+	overflow : hidden;
+}
+
+#animation {
+	position : absolute;
+	top : 0;
+	left : 0;
+}
+
+#controls-container {
+	position : absolute;
+	top : 0;
+	left : 0;
+	width : 100%;
+	height : 100%;
+
+	background-color : rgb(20,29,39);
+	background-color : rgba(21,31,42,0.7);
+
+}
+
+#controls-container, x:-moz-any-link, x:default { 
+	background-color : rgba(21,29,39,0.7);
+} /* FireFox 3 */
+
+#controls {
+	position : absolute;
+	top : 0;
+	left : 0;
+	margin : 5%;
+	width : 90%;
+	height : 90%;
+
+/*
+ 	border : 1px solid rgb(64,64,64);
+	background-color : rgb(0,0,0);
+	background-color : rgba(0,0,0,0.5);
+*/
+	color : rgb(160,160,160);
+	font-family : lucida console, courier new;
+	font-size : 12px;
+	padding : 20px;
+}
+
+#controls ul {
+	margin-bottom : 20px; 
+}
+
+#controls li {
+	height : 25px;
+}
+
+#controls li input, #controls li select {
+	vertical-align : middle;
+	margin-top : 1px;
+	margin-left : 10px;
+}
+
+#controls li label {
+	width : 150px;
+	display : inline-block;
+}
+
+#close-button {
+	position : absolute;
+	right : 10px;
+	top : 10px;
+	cursor : pointer;
+}
+
+#button-generate {
+	margin-bottom : 20px;
+}
+
+#background {
+	/* background-image:url(bg.png); */
+	background-image:url(bg.jpg);
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	left : 0;
+	top : 0;
+}
+
+#overlay, #saveimage {
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	left : 0;
+	top : 0;
+}
+
+#links {
+	position : absolute;
+	width : 100px;
+	left : -110px;
+	top : 20px;
+	text-align : right;
+	font-family : "Garamond", "Palatino Linotype", "Times";
+	font-size : 14px;
+	font-weight : bold;
+}
+
+#links li {
+	line-height : 25px;
+}
+#links a {
+	text-decoration : none;
+}
+#links a:hover {
+	text-decoration : underline;
+}
+
+#saveimage {
+	display : none;
+}
+
+.trans20 {
+	-moz-opacity : 0.01;
+	-webkit-opacity : 0.01;
+	opacity : 0.01;
+}
+
+.trans50 {
+	-moz-opacity : 0.5;
+	-webkit-opacity : 0.5;
+	opacity : 0.5;
+}
+
+.trans100 {
+	-moz-opacity : 1;
+	-webkit-opacity : 1;
+	opacity : 1;
+}
+
+
